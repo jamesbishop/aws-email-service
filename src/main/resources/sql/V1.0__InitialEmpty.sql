@@ -1,0 +1,1 @@
+-- This is intentionally empty and allows a V1 baseline to be created that leaves existing database tables untouched

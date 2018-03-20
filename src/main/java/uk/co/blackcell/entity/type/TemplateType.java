@@ -1,0 +1,23 @@
+package uk.co.blackcell.entity.type;
+
+/**
+ * Defined list of templates currently supported by the service.
+ *
+ * @author James Bishop
+ */
+public enum TemplateType {
+    ACCOUNT_CREATION,
+    ACCOUNT_LOCKED_BY_PASSWORD,
+    ACCOUNT_LOCKED_BY_SECURITY_WORD,
+    ACCOUNT_VALIDATION_UNAVAILABLE,
+    APPLICATION_SUBMISSION_FAILED,
+    SECURITY_WORD_CREATED,
+    EXPERIAN_SERVICE_UNAVAILABLE,
+    IDV_FAILURE_BW_FAILURE_EXISTING,
+    IDV_FAILURE_BW_FAILURE_NEW,
+    IDV_SUCCESS_BW_FAILURE,
+    IDV_SUCCESS_BW_SUCCESS,
+    PASSWORD_RESET,
+    SECURITY_WORD_RESET,
+    USERNAME_REMINDER
+}

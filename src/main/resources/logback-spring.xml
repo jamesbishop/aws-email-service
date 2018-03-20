@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	In order to override this file add a logging.config=FILE_NAME should be added to application.properties e.g.
+
+	logging.config=file:/home/dev-01/Documents/logback.xml 
+
+ -->
+<configuration>
+       
+    <property name="LOG_FILE" value="./logs/email-service.log"/>
+    <springProperty scope="context" name="ACTIVE_PROFILE" source="spring.profiles.active"/> 
+    <property name="LOG_PATTERN" value="%d{dd-MM-yy HH:mm:ss} [%thread] %-5level %logger{35} --- %msg%n"/>
+    
+    <springProfile name="!prod">
+	
+        <appender name="ROLLING-FILE"
+                  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <encoder>
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+            <file>${LOG_FILE}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <totalSizeCap>4GB</totalSizeCap>
+                <maxHistory>4</maxHistory>
+            </rollingPolicy>
+        </appender>
+
+        	<!-- 
+        		This if condition need org.codehaus.janino maven dependency,
+        		It determines if the -Dspring.profiles.active has been set.
+        	 -->	
+        	<if condition='isDefined("ACTIVE_PROFILE")'>
+		    <then>        
+	        		<logger name="uk.co.blackcell" level="DEBUG" additivity="false">
+	            		<appender-ref ref="ROLLING-FILE"/>
+	        		</logger>
+	        		<root level="INFO">
+	            		<appender-ref ref="ROLLING-FILE"/>
+	        		</root>
+			</then>
+			<else>
+				<!-- 
+					if ACTIVE_PROFILE has not been set then we assume it's in a local dev environment and we require console logging. 
+				 -->
+			    	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender"> 
+					<layout>
+						<Pattern>${LOG_PATTERN}</Pattern>
+					</layout> 
+			    </appender>
+			    
+	        		<logger name="uk.co.blackcell" level="DEBUG" additivity="false">
+	            		<appender-ref ref="ROLLING-FILE"/>
+	            		<appender-ref ref="CONSOLE"/>	        
+	        		</logger>
+	        		<root level="INFO">
+	            		<appender-ref ref="ROLLING-FILE"/>
+	            		<appender-ref ref="CONSOLE"/>
+	        		</root>			
+			</else>
+        </if>
+    </springProfile>
+    
+    <springProfile name="prod">
+        <appender name="ROLLING-FILE"
+                  class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <encoder>
+                <pattern>${LOG_PATTERN}</pattern>
+            </encoder>
+            <file>${LOG_FILE}</file>
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <totalSizeCap>15GB</totalSizeCap>
+                <maxHistory>7</maxHistory>
+            </rollingPolicy>
+        </appender>
+        
+        <logger name="uk.co.blackcell" level="DEBUG" additivity="false">
+            <appender-ref ref="ROLLING-FILE"/>
+        </logger>
+                
+        <root level="WARN">
+            <appender-ref ref="ROLLING-FILE"/>
+        </root>
+    </springProfile>
+    
+</configuration>
