@@ -33,7 +33,7 @@
     </p>
 		
     <p class="double">
-		If you haven't attempted to reset your password, or if you have any questions, then please contact our Customer Services Team on 0800 028 3746 (Monday-Friday 8am to 8pm and Sunday 10am to 4pm).
+		If you attempted to reset your password, or if you have any questions, then please contact our Customer Services Team anytime..
 	</p>
 
 	<p>
@@ -41,11 +41,11 @@
 	</p>
 
 	<p class="double">
-		Hodge Bank Deposits Team
+		Black Cell Limited.
 	</p>
 	
 	<p>
-		This is an automated message, please do not respond to it. You can email our Customer Service Team via applications@hodgebank.co.uk.
+		This is an automated message, please do not respond to it. You can email our Customer Service Team via noreply@blackcell.co.uk
 	</p>
 </div>
 </body>
